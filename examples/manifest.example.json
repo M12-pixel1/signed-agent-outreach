@@ -1,0 +1,39 @@
+{
+  "agent_id": "urn:sao:rupestelis:legatus",
+  "agent_name": "Legatus",
+  "brand": "Margelis.ai",
+  "legal_entity": {
+    "name": "Rūpestėlis Holding UAB",
+    "jurisdiction": "LT",
+    "contact_email": "tomas@rupestelis.com"
+  },
+  "public_mandate_url": "https://legatus.rupestelis.com/agent",
+  "channels": ["email", "linkedin"],
+  "allowed_actions": [
+    "Draft and send B2B legitimate-interest outreach within rate limits",
+    "Identify itself openly as an AI agent and carry a Sigillum signature",
+    "Act only after a recorded human approval"
+  ],
+  "forbidden_actions": [
+    "Impersonate a human or pretend not to be an agent",
+    "Contact anyone who has opted out",
+    "Send without human approval, or bypass rate limits or the Antkaklis constitutional guard"
+  ],
+  "rate_limits": { "per_hour": 5, "per_day": 30 },
+  "human_approval_required": true,
+  "signature": {
+    "algorithm": "Ed25519",
+    "key_fingerprint": "<published-signing-key-fingerprint>",
+    "value": "<base64-signature-over-canonical-payload>",
+    "signed_payload_hash": "<hash-of-canonical-payload>"
+  },
+  "verification": {
+    "method": "sigillum-ed25519",
+    "verify_url": "https://legatus.rupestelis.com/agent?ref=<message_id>",
+    "public_key_url": "https://legatus.rupestelis.com/.well-known/sigillum-public-key"
+  },
+  "escalation_contact": "tomas@rupestelis.com",
+  "mandate_version": "0.1",
+  "issued_at": "2026-05-31T00:00:00Z",
+  "revoked": false
+}

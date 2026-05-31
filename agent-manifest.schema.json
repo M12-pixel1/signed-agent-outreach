@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://margelis.ai/spec/agent-manifest.schema.json",
+  "title": "Signed Agent Outreach — Agent Manifest",
+  "description": "Machine-readable manifest describing an outbound AI agent, its operator, its mandate, and its signature.",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "agent_name",
+    "legal_entity",
+    "public_mandate_url",
+    "allowed_actions",
+    "forbidden_actions",
+    "signature",
+    "verification",
+    "issued_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "description": "Stable, operator-scoped identifier (URN or domain-scoped).",
+      "examples": ["urn:sao:rupestelis:legatus"]
+    },
+    "agent_name": { "type": "string", "examples": ["Legatus"] },
+    "brand": {
+      "type": "string",
+      "description": "Public brand the agent operates under, if different from the legal entity name.",
+      "examples": ["Margelis.ai"]
+    },
+    "legal_entity": {
+      "type": "object",
+      "description": "The real legal entity accountable for the agent within its mandate.",
+      "required": ["name", "jurisdiction", "contact_email"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "examples": ["Rūpestėlis Holding UAB"] },
+        "registration_id": { "type": "string", "description": "Company registration number, if any." },
+        "jurisdiction": { "type": "string", "description": "ISO 3166-1 alpha-2 country code.", "examples": ["LT"] },
+        "contact_email": { "type": "string", "format": "email" }
+      }
+    },
+    "public_mandate_url": { "type": "string", "format": "uri" },
+    "channels": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["email", "linkedin", "sms", "voice", "web", "other"] }
+    },
+    "allowed_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "forbidden_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "rate_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "per_hour": { "type": "integer", "minimum": 0 },
+        "per_day": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "human_approval_required": { "type": "boolean" },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "key_fingerprint", "value", "signed_payload_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["Ed25519"] },
+        "key_fingerprint": { "type": "string", "description": "Fingerprint of the operator's published signing public key." },
+        "value": { "type": "string", "description": "Base64-encoded signature over the canonical signed payload." },
+        "signed_payload_hash": { "type": "string", "description": "Hash of the canonical signed payload." }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["method", "verify_url"],
+      "additionalProperties": false,
+      "properties": {
+        "method": { "type": "string", "examples": ["sigillum-ed25519"] },
+        "verify_url": { "type": "string", "format": "uri" },
+        "public_key_url": { "type": "string", "format": "uri", "description": "Where the operator's signing public key is published." }
+      }
+    },
+    "escalation_contact": { "type": "string", "description": "Email or URI for reporting misconduct / opting out." },
+    "mandate_version": { "type": "string" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "revoked": { "type": "boolean", "default": false }
+  }
+}
