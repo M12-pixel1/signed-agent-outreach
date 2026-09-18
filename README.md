@@ -38,3 +38,12 @@ An outbound agent conforms to SAO if every message (1) discloses it is an AI age
 ## Status & contributions
 
 This is a **proposal under active implementation**, not a finished standard. We invite review, issues, and PRs. We are **not claiming to be first** — we are claiming to be accountable, and proposing this as common practice.
+
+## Related guidance (EU AI Act Article 50)
+
+Signed Agent Outreach is the outreach-side application of the same principle this guidance describes for published content:
+
+- [How to mark AI-generated content under Article 50 and prove the marking is yours](https://margelis.ai/ai-act-article-50.html)
+- [Article 50 readiness checklist (16 checks, no sign-up)](https://margelis.ai/article-50-checklist.html)
+- [EU AI Act in Lithuania: who supervises it and what companies must do](https://margelis.ai/ai-act-lithuania.html)
+- [Signed publication registry](https://margelis.ai/verify/) - every AI-assisted item Margelis.ai publishes carries an Ed25519-signed receipt
